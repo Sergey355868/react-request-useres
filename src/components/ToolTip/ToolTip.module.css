@@ -1,0 +1,43 @@
+.tooltip {
+    z-index: 1;
+    transition: opacity 0.5s, visibility 0.5s;
+    display: inline-block;
+    border-radius: 5px;
+    background-color: rgba(85, 85, 85, 0.85);
+}
+.tooltip:after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+ .tooltip__text {
+     display: inline-block;
+     flex: 1;
+     padding: 1vh 2vh;
+ }
+ .tooltip__text__theme {
+    color: #fff;
+ }
+
+.tooltip__text_size {
+
+}
+.tooltip_visible {
+    visibility: visible;
+    opacity: 1;
+}
+.tooltip_notvisible {
+    opacity: 0;
+    visibility: hidden;
+
+}
+@media screen and (max-width: 268px){
+    .tooltip__text {
+        font-size: 9px;
+    }
+}

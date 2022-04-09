@@ -1,0 +1,48 @@
+.block-input-contaner {
+    margin-top: 10px;
+}
+.block-input {
+    position: relative;
+}
+.block-input__tooltip {
+    position: absolute;
+    top: calc(-100% + 3px);
+    left: 0;
+}
+.block-input__message-list {
+    position: absolute;
+    top:100%;
+    left:0;
+}
+.input {
+    display: inline-block;
+    border-radius: 5px;
+    box-sizing: border-box;
+    outline: none;
+    box-shadow: 2px 2px 4px var(--blue-hover);
+}
+.input_size {
+    font-weight: bold;
+    color: var(--blue-hover);
+    padding: 1vh 2vh;
+    margin: 0 0 8px;
+    border: 1px solid #ccc;
+}
+.input::placeholder {
+    color: #3a98e0;
+    opacity: 0.5;
+}
+input:focus {
+    transform: translateY(3px);
+    box-shadow: none;
+}
+@media screen and (max-width: 780px) {
+    .input_size {
+        width: 100%;
+    }
+}
+@media screen and (min-width: 780px) {
+ .input_size {
+     width: 50% ;
+ }
+}

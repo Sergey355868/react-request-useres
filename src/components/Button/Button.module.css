@@ -1,0 +1,116 @@
+.button {
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+    transition: 0.1s;
+    color: white;
+    margin-right: 15px;
+ }
+.button:last-child {
+    margin-right: 0;
+}
+
+/*------------------------------------------*/
+.button_size_l {
+    padding: 14px 28px;
+    border-radius: 7px;
+    font-size: 16px;
+}
+.button_size_m {
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/*------------------------------------------*/
+.button_theme_blue {
+    background-color: var(--blue);
+}
+.button_theme_blue:hover {
+    background-color: var(--blue-hover);
+}
+.button_theme_blue.button_shadow {
+    box-shadow:  3px 3px  6px var(--blue);
+}
+/*------------------------------------------*/
+/*------------------------------------------*/
+.button_theme_green {
+    background-color: var(--green);
+}
+.button_theme_green:hover {
+    background-color: var(--green-hover);
+}
+.button_theme_green.button_shadow {
+    box-shadow:  3px 3px  6px var(--green);
+}
+/*------------------------------------------*/
+/*------------------------------------------*/
+.button_theme_orange {
+    background-color: var(--orange);
+}
+.button_theme_orange:hover {
+    background-color: var(--orange-hover);
+}
+.button_theme_orange.button_shadow {
+    box-shadow:  3px 3px  4px var(--orange);
+}
+/*------------------------------------------*/
+/*------------------------------------------*/
+.button_theme_red {
+    background-color: var(--red);
+}
+.button_theme_red:hover {
+    background-color: var(--red-hover);
+}
+.button_theme_red.button_shadow {
+    box-shadow:  3px 3px  4px var(--red);
+}
+/*------------------------------------------*/
+/*------------------------------------------*/
+.button_theme_gray {
+    background-color: var(--gray);
+}
+.button_theme_gray:hover {
+    background-color: var(--gray-hover);
+}
+.button_theme_gray.button_shadow {
+    box-shadow:  3px 3px  4px var(--gray);
+}
+/*------------------------------------------*/
+.button_shadow:active {
+    transform: translateY(3px);
+    box-shadow: none;
+}
+.button:focus {
+    outline-color: var(--blue-outline);
+}
+.button__img {
+    display: inline-block;
+}
+.button__img_next{
+    margin-left: 10px;
+}
+.button__img_prev {
+    margin-right: 10px;
+    transform: rotate(-180deg);
+}
+/*-----------------------------------------------*/
+@media screen and (max-width: 905px) {
+    .button_size_l {
+        padding: 10px 20px;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+}
+@media screen and (max-width: 820px) {
+    .button_size_l {
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+}
+@media screen and (max-width: 244px){
+
+
+}

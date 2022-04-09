@@ -1,0 +1,8 @@
+.contaner-users {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: #f6f2f2;
+
+}

@@ -1,0 +1,15 @@
+.boxnotification {
+    background-color: #ffdddd;
+    border-left: 6px solid #f44336;
+    padding: 5vmax;
+    text-align: center;
+    width: 30vmax;
+    transition:  margin-left 0.5s;
+}
+.not_appearance {
+    margin-left: -130vmax;
+}
+.appearance {
+    margin-left: 0;
+}
+

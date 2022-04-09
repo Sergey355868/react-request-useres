@@ -1,0 +1,12 @@
+.infoBlock {
+    letter-spacing: normal;
+    padding: 0 1vw;
+    border-radius: 5px;
+    text-align: center;
+}
+.infoBlock_theme {
+    color:white;
+    font-weight: bold;
+    background-color: #3a98e0;
+    border: 2px solid yellowgreen;
+}

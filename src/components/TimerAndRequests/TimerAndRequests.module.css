@@ -1,0 +1,41 @@
+.timer-second {
+    padding: 2px;
+}
+.timer-second_theme {
+    background-color: #89b9ec;
+    color: white;
+    box-shadow: -3px 3px 3px 3px #89b9ec;
+    outline: 2px solid #0b7dda;
+}
+.timer-second_size {
+    border-radius: 5px;
+    /*width: 20vmax;*/
+}
+.timer-second__second {
+    font-weight: bold;
+    color: #3e8e41;
+}
+.timer-second__requests {
+    font-style: italic;
+    font-weight: bolder;
+}
+@media screen and (max-width: 898px) {
+    .timer-second {
+        font-size: 14px;
+    }
+}
+@media screen and (max-width: 732px) {
+    .timer-second {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+        padding: 3px;
+    }
+}
+@media screen and (max-width: 254px) {
+    .timer-second {
+        padding: 0 1px;
+    }
+}
