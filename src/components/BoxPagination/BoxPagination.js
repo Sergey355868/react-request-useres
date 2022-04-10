@@ -2,28 +2,32 @@ import React, {useCallback, useRef} from 'react';
 import  classes from "./BoxPagination.module.css";
 import { __getClasses } from "../../helpers/getClasses";
 import { getUrlByNumber } from "../../helpers/getLinksPage";
+import {useActions} from "../../hooks/useActions";
+import {useSelector} from "react-redux";
 
-export const BoxPagination = ({ numberOfPages, activePage, className, fetch, currentUrl, apperance  }) => {
-    numberOfPages = numberOfPages && +numberOfPages;
-    activePage    = activePage && +activePage;
-
+export const BoxPagination = React.memo( ({  className  }) => {
     let { current:buttons } = useRef(new Map());
+    let { fetchUsers } = useActions();
+    let { links:{ current }, pages:{ last_page, current_page:activePage },apperance } = useSelector(state => state.users);
+
+    last_page = last_page && +last_page;
+    activePage = activePage && +activePage;
 
     let clickHandler = useCallback(({ target }) => {
-        if (buttons.has(target) && currentUrl) {
+        if (buttons.has(target) && current) {
             let number_page = buttons.get(target);
             if (number_page !== activePage && +number_page) {
-                let url_number = getUrlByNumber(currentUrl, number_page);
-                fetch("", url_number);
+                let url_number = getUrlByNumber(current, number_page);
+                fetchUsers("", url_number);
             }
         }
-    },[currentUrl, activePage,fetch]);
+    },[current, activePage,fetchUsers]);
 
     let getPages = useCallback( (ref, number) => {
-          (buttons.size < numberOfPages) && buttons.set(ref, number);
-    },[numberOfPages]);
+          (buttons.size < +last_page) && buttons.set(ref, number);
+    },[last_page]);
 
-    if (!numberOfPages || numberOfPages === 1) {
+    if (!last_page || last_page === 1) {
        return null;
     }
     return (
@@ -32,7 +36,7 @@ export const BoxPagination = ({ numberOfPages, activePage, className, fetch, cur
             onClick={ clickHandler }
         >
             {
-                new Array(numberOfPages).fill("").map((_, index) => {
+                new Array(last_page).fill("").map((_, index) => {
                      if (activePage === index + 1) {
                          return <button
                              key = { index + "--pgP++" }
@@ -59,5 +63,5 @@ export const BoxPagination = ({ numberOfPages, activePage, className, fetch, cur
             }
         </div>
     );
-};
+});
 

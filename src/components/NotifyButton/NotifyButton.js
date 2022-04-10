@@ -1,19 +1,27 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import classes from "./NotifyButton.module.css";
 import arrowButton from "./arrow.svg";
 import { __getClasses } from "../../helpers/getClasses";
+import { useActions } from "../../hooks/useActions";
+import { useSelector } from "react-redux";
 
-export const NotifyButton = ({
+export const NotifyButton = React.memo( ({
     theme = "blue",
     text = "Кнопка",
-    number = 0 ,
     arrow = true,
     size = "l",
-    direction ="next",
+    direction ="",
     press = true,
     budge_theme = "blue",
     ...props
 }) => {
+    let { fetchUsers } = useActions();
+    let { links, pages, apperance } = useSelector(state => state.users);
+
+    let onClickHandler = useCallback(() => {
+        links[direction] && fetchUsers("", links[direction]);
+    },[links,fetchUsers, direction]);
+
     let _button = useMemo(() => __getClasses({
         default: {
             [classes.notify]: true,
@@ -41,8 +49,12 @@ export const NotifyButton = ({
     }),[budge_theme]);
 
     return (
-        <button  className ={ _button }  { ...props }>
-
+        <button
+            className ={ _button }
+            { ...props }
+            onClick={ onClickHandler }
+            disabled ={ !links[direction] || apperance }
+        >
                  {
                      (arrow && direction === "prev") &&
                      <img
@@ -61,8 +73,15 @@ export const NotifyButton = ({
                          className ={classes.notify__img_next}
                      />
                  }
-                <span className ={ _badge }>{ number }</span>
+                <span className ={ _badge }>
+                    {
+
+                    direction === "prev" ?
+                        ((pages.current_page > 0) ? pages.current_page - 1 : 0)
+                        : (pages.last_page - pages.current_page)
+                    }
+                </span>
        </button>
     );
-};
+});
 

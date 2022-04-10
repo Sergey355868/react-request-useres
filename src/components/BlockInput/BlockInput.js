@@ -2,9 +2,12 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 import classes from "./BlockInput.module.css";
 import { __getClasses } from "../../helpers/getClasses";
 import {MessageList, ToolTip} from "..";
+import { useActions } from "../../hooks/useActions";
+import {useSelector} from "react-redux";
 
-export const BlockInput = ({ placeholder ="enter users", className = "", fetch = null, ...props }) => {
-
+ export const BlockInput = React.memo (({ placeholder ="enter users", className = "",...props }) => {
+    let { fetchUsers } = useActions();
+    let { apperance }  = useSelector(state => state.users);
     let [visibleToolTip, setVisibleTooltip] = useState(false);
     let [valueInput, setValueInput] = useState("");
     let validate = useRef([]);
@@ -14,14 +17,14 @@ export const BlockInput = ({ placeholder ="enter users", className = "", fetch =
     },[className]);
 
     let handlerKeyUp = useCallback( ({ key, target }) => {
-         if (key ==="Enter" && valueInput && validate.current.length ) {
+         if (key ==="Enter" && valueInput && validate.current.length && !apperance ) {
              if(!(validate.current.filter( bool => !bool)).length) {
-                fetch && fetch(valueInput);
+                 fetchUsers && fetchUsers(valueInput);
                 target.value = "";
                 setValueInput("");
             }
          }
-    },[valueInput, fetch]);
+    },[valueInput, fetchUsers, apperance]);
     let handlerFocus = useCallback( () => {
         setVisibleTooltip(true);
     },[]);
@@ -59,5 +62,5 @@ export const BlockInput = ({ placeholder ="enter users", className = "", fetch =
             </div>
         </div>
     );
-};
+});
 

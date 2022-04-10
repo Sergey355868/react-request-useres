@@ -2,7 +2,7 @@ import React, {useEffect, useMemo, useState} from 'react';
 import classes from "./IndicatorScroll.module.css";
 import { __getClasses } from "../../helpers/getClasses";
 
-export const IndicatorScroll = () => {
+export const IndicatorScroll =React.memo( () => {
 
     let [width, setWidth] = useState("0");
 
@@ -28,5 +28,5 @@ export const IndicatorScroll = () => {
             <div className={classes["progress-container__progress_bar"]} style={{ width }}  >  </div>
         </div>
     );
-};
+});
 

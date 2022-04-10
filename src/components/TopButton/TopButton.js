@@ -3,7 +3,7 @@ import classes from "./TopButton.module.css";
 import { __getClasses } from "../../helpers/getClasses";
 import { animate, draw, linear } from "../../animation/animationScroll";
 
-export const TopButton = ({ distance = 50, text="", theme ="green", arrow = "top", around , ...props }) => {
+export const TopButton = React.memo(({ distance = 50, text="", theme ="green", arrow = "top", around , ...props }) => {
 
     let [isVisible, setIsVisible] = useState(false);
 
@@ -60,4 +60,4 @@ export const TopButton = ({ distance = 50, text="", theme ="green", arrow = "top
             { text }
         </button>
     );
-};
+});
