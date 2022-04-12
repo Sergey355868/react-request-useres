@@ -5,30 +5,41 @@ import { useSelector } from "react-redux";
 import { useActions } from "../../hooks/useActions";
 
 export const TimerAndRequests = () => {
-    let { apperanceNotify, disapperanceNotify }  = useActions();
-    let { requests, apperance }  = useSelector(state => state.users);
+
+    let { apperanceNotify, disapperanceNotify, offTimer }  = useActions();
+    let { requests, apperance, start_timer }  = useSelector(state => state.users);
     let [second, setSecond] = useState(60);
 
     useEffect(() => {
-        let secondTimer;
-        function timeOut(requests, apperance, disapperanceNotify) {
-            setSecond (prevState => {
+        if (start_timer) {
+            let secondTimer;
+            function timeOut() {
+                setSecond(prevState => !prevState ? 60 : prevState - 1);
+                secondTimer = setTimeout(timeOut, 1000);
+            }
+            let firstSecondTimer = setTimeout(timeOut, 1000);
+            return () => {
+                clearTimeout(secondTimer);
+                clearTimeout(firstSecondTimer);
+            }
+        }
+    },[start_timer]);
 
-              return  !prevState ? ((apperance && disapperanceNotify(0)),60): prevState - 1;
-            });
-            secondTimer = setTimeout(timeOut, 1000, requests, apperance, disapperanceNotify);
-        }
-        let firstSecondTimer = setTimeout(timeOut, 1000, requests, apperance, disapperanceNotify);
-        return () => {
-            clearTimeout(secondTimer);
-            clearTimeout(firstSecondTimer);
-        }
-    },[apperance,disapperanceNotify,requests]);
     useEffect(() => {
         if (requests === 10) {
             apperanceNotify();
         }
     },[requests]);
+
+    useEffect(() => {
+        if (!second && apperance) {
+            disapperanceNotify();
+        }
+        if (start_timer && !second) {
+          setSecond(60);
+          offTimer();
+        }
+    },[apperance, second, start_timer]);
 
     let _classes = useMemo(() => {
        return __getClasses( classes["timer-second"],classes["timer-second_theme"],classes["timer-second_size"]);

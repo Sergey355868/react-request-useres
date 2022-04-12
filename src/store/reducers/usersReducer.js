@@ -5,8 +5,9 @@ import {
     FETCH_USERS_LOADING,
     FETCH_USERS_LOADING_END,
     FETCH_USERS_NOT_FOUND, FETCH_USERS_RECORD_LINKS_AND_PAGES,
-    FETCH_USERS_SUCCESS, INCREMENT_REQUESTS, USERS_GET_DATA_OF_LOCAL_STORAGE
+    FETCH_USERS_SUCCESS, INCREMENT_REQUESTS, OFF_TIMER
 } from "../types/usersTypes";
+import { _localStorage } from "../../helpers/localStorage";
 
 export const initial_links = {
     current: "",
@@ -19,20 +20,18 @@ const initial_pages = {
     current_page : "0",
     last_page: "0"
 };
-
 const initialState = {
-    users: [],
+    users:  _localStorage("users") || [],
     loading: false,
     error: null,
-    links:  initial_links,
-    pages:  initial_pages,
+    links:  _localStorage("links") || {...initial_links },
+    pages:  _localStorage("pages") || {...initial_pages },
     requests:0,
     apperance:false,
+    start_timer:false,
 };
-
 export const usersReducer = (state = initialState, action) => {
     switch (action.type) {
-
         case FETCH_USERS_LOADING: {
           return { ...state, loading: true };
         }
@@ -40,6 +39,14 @@ export const usersReducer = (state = initialState, action) => {
             return {
                 ...state,
                  requests: state.requests + 1,
+                 start_timer: true,
+            };
+        }
+        case OFF_TIMER: {
+            return {
+              ...state,
+              start_timer: false,
+              requests: 0,
             };
         }
         case APPERANCE_NOTIFY: {
@@ -52,13 +59,12 @@ export const usersReducer = (state = initialState, action) => {
             return  {
                 ...state,
                 apperance: false,
-                requests: action.payload,
             }
         }
         case FETCH_USERS_CLEAR_LINKS_AND_PAGES: {
             return {
                 ...state,
-                links: {...initial_links },
+                links:  {...initial_links },
                 pages : {...initial_pages  },
             };
         }
@@ -75,16 +81,8 @@ export const usersReducer = (state = initialState, action) => {
                 }
             };
         }
-        case USERS_GET_DATA_OF_LOCAL_STORAGE: {
-            return  {
-                ...state,
-                users: action.payload.users || [],
-                links: action.payload.links || { ...initial_links },
-                pages: action.payload.pages || { ...initial_pages },
-            };
-        }
         case FETCH_USERS_SUCCESS : {
-            return {...state, users: action.payload };
+            return {...state, users: action.payload , error: null };
         }
         case FETCH_USERS_NOT_FOUND: {
             return  {...state, users: [] };

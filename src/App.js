@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
     BoxError,
     Button,
@@ -8,21 +8,14 @@ import {
     NotifyButton,
     TopButton, BoxNotification, BoxPagination
 } from "./components";
-import {_getDataByKey, keys } from "./helpers/localStorage";
 import {TimerAndRequests } from "./components";
-import { useActions } from "./hooks/useActions";
+
 import {useSelector} from "react-redux";
 
 function App() {
     let { users, loading, error, links, pages }  = useSelector(state => {
         return state.users
     });
-    let { getDataUsersFromLS } = useActions();
-
-    useEffect(() => {
-       getDataUsersFromLS(_getDataByKey(keys));
-    },[]);
-
     return (
         <>
             <div className="contaner-buttons-info" style={{ marginTop: "5px" }} >

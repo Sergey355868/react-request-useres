@@ -10,8 +10,7 @@ import {
     FETCH_USERS_NOT_FOUND,
     FETCH_USERS_RECORD_LINKS_AND_PAGES,
     FETCH_USERS_SUCCESS,
-    INCREMENT_REQUESTS,
-    USERS_GET_DATA_OF_LOCAL_STORAGE
+    INCREMENT_REQUESTS, OFF_TIMER,
 } from "../types/usersTypes";
 import { initial_links} from "../reducers/usersReducer";
 
@@ -48,7 +47,6 @@ export const fetchUsers = (name ="", url ="") => {
                            pages,
                        }
                     });
-
                     dispatch ({
                         type: FETCH_USERS_SUCCESS,
                         payload:users
@@ -59,14 +57,12 @@ export const fetchUsers = (name ="", url ="") => {
                     dispatch({
                         type: FETCH_USERS_NOT_FOUND
                     });
-
                 }
             }
             if (response.status === 403) {
                 // ????
             }
         } catch (e) {
-
             dispatch({ type: FETCH_USERS_CLEAR_LINKS_AND_PAGES });
             localStorage.clear();
             dispatch ({
@@ -81,20 +77,12 @@ export const fetchUsers = (name ="", url ="") => {
         }
     };
 };
-export function getDataUsersFromLS( data ) {
-  return {
-      type: USERS_GET_DATA_OF_LOCAL_STORAGE,
-      payload: data,
-  }
-}
-export function apperanceNotify() {
-    return {
-        type:APPERANCE_NOTIFY,
-    }
-}
-export function disapperanceNotify(requests) {
-    return {
-        type:DISAPPERANCE_NOTIFY,
-        payload:requests,
-    }
-}
+export const apperanceNotify = () => ({
+    type:APPERANCE_NOTIFY,
+});
+export const disapperanceNotify = () => ({
+       type:DISAPPERANCE_NOTIFY,
+});
+export const offTimer = () => ({
+      type:OFF_TIMER,
+});
